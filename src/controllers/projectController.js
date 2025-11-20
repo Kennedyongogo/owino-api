@@ -12,6 +12,86 @@ const {
 const { Op } = require("sequelize");
 const path = require("path");
 
+// Get available project categories
+const getProjectCategories = async (req, res) => {
+  try {
+    const categories = [
+      {
+        value: "residential_interior_design",
+        label: "Residential Interior Design",
+        description: "Designing personal living spaces: Living rooms, Bedrooms, Kitchens, Bathrooms, Dining rooms, Home offices, Full home renovations, Apartment/condo interiors",
+      },
+      {
+        value: "commercial_interior_design",
+        label: "Commercial Interior Design",
+        description: "Designing business and public-use spaces: Offices & workspaces, Retail shops & showrooms, Restaurants & cafés, Hotels & accommodations, Salons & spas, Gyms & wellness centers, Educational institutions, Hospitals & clinics",
+      },
+      {
+        value: "hospitality_interior_design",
+        label: "Hospitality Interior Design",
+        description: "Specialized for the hospitality industry: Hotels & resorts, Bars & lounges, Airbnb & serviced apartments, Entertainment venues",
+      },
+      {
+        value: "corporate_office_interior_design",
+        label: "Corporate / Office Interior Design",
+        description: "Focused on productivity and branding: Open-plan offices, Boardrooms, Reception areas, Co-working spaces",
+      },
+      {
+        value: "landscape_outdoor_interior_design",
+        label: "Landscape & Outdoor Interior Design",
+        description: "Outdoor living and functional spaces: Patios & terraces, Balconies, Gardens, Outdoor kitchens, Poolside layouts",
+      },
+      {
+        value: "interior_styling_decoration",
+        label: "Interior Styling & Decoration",
+        description: "Light design work without structural changes: Furniture placement, Color schemes, Wall art & décor, Curtains & blinds, Rugs & accessories, Theme makeovers (modern, luxe, boho, etc.)",
+      },
+      {
+        value: "space_planning_layout_design",
+        label: "Space Planning & Layout Design",
+        description: "Technical planning: Floor plans, Circulation flow, Furniture layout, Room zoning",
+      },
+      {
+        value: "interior_construction_renovation",
+        label: "Interior Construction & Renovation",
+        description: "More technical & structural activities: Partition installation, Ceilings & gypsum work, Tiling & flooring, Lighting installation, Plumbing & electrical repositioning, Built-in cabinetry",
+      },
+      {
+        value: "visualization_concept_development",
+        label: "3D Visualization & Concept Development",
+        description: "Creative and virtual design: 3D renders, Walkthrough animations, Material boards, Mood boards",
+      },
+      {
+        value: "custom_furniture_joinery_design",
+        label: "Custom Furniture & Joinery Design",
+        description: "Custom designs for unique spaces: Wardrobes, Kitchen cabinets, TV units, Shelving systems, Tables & bespoke pieces",
+      },
+      {
+        value: "interior_branding_theming",
+        label: "Interior Branding & Theming",
+        description: "Spaces designed around identity: Branded offices, Retail brand experiences, Themed homes, Event space design",
+      },
+      {
+        value: "project_management",
+        label: "Project Management",
+        description: "Overseeing execution: Procurement, Budgeting, Contractor supervision, Quality assurance, Timeline management",
+      },
+    ];
+
+    res.status(200).json({
+      success: true,
+      data: categories,
+    });
+  } catch (error) {
+    console.error("Error fetching project categories:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching project categories",
+      error: error.message,
+    });
+  }
+};
+
 // Get all projects
 const getAllProjects = async (req, res) => {
   try {
@@ -247,7 +327,7 @@ const createProject = async (req, res) => {
       documents,
       notes,
       floor_size,
-      construction_type,
+      category,
     } = req.body;
 
     // Verify engineer exists
@@ -313,7 +393,7 @@ const createProject = async (req, res) => {
       document_urls: finalDocumentUrls,
       notes,
       floor_size,
-      construction_type: construction_type || "building",
+      category,
     });
 
     // Fetch the created project with associations
@@ -986,4 +1066,5 @@ module.exports = {
   getPublicProjects,
   getPublicProjectById,
   searchPublicProjects,
+  getProjectCategories,
 };

@@ -38,7 +38,7 @@ const initializeModels = async () => {
     console.log("📋 Syncing parent tables...");
     await Admin.sync({ force: false, alter: false });
     await User.sync({ force: false, alter: false });
-    await Project.sync({ force: false, alter: false });
+    await Project.sync({ force: false, alter: true });
 
     console.log("📋 Syncing child tables...");
     await Task.sync({ force: false, alter: false });

@@ -110,17 +110,22 @@ module.exports = (sequelize) => {
         allowNull: true,
         comment: "Floor size of the project (in square meters or ft²)",
       },
-      construction_type: {
+      category: {
         type: DataTypes.ENUM(
-          "building",
-          "infrastructure",
-          "industrial",
-          "specialized",
-          "other"
+          "residential_interior_design",
+          "commercial_interior_design",
+          "hospitality_interior_design",
+          "corporate_office_interior_design",
+          "landscape_outdoor_interior_design",
+          "interior_styling_decoration",
+          "space_planning_layout_design",
+          "interior_construction_renovation",
+          "visualization_concept_development",
+          "custom_furniture_joinery_design",
+          "interior_branding_theming",
+          "project_management"
         ),
-        allowNull: false,
-        defaultValue: "building",
-        comment: "Type of construction project",
+        allowNull: true,
       },
     },
     {

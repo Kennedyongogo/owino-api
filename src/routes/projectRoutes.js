@@ -9,6 +9,7 @@ const {
   deleteProject,
   getProjectStats,
   getProjectsByStatus,
+  getProjectCategories,
 } = require("../controllers/projectController");
 const { authenticateToken } = require("../middleware/auth");
 const { errorHandler } = require("../middleware/errorHandler");
@@ -23,6 +24,7 @@ router.use(authenticateToken);
 
 // Project routes
 router.get("/", getAllProjects);
+router.get("/categories", getProjectCategories);
 router.get("/stats", getProjectStats);
 router.get("/status/:status", getProjectsByStatus);
 router.get("/:id", getProjectById);
